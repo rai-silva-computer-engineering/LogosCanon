@@ -45,7 +45,10 @@ A organização interna e a tecnologia dessa memória ainda serão definidas em 
 Memória Distribuída
 
 A capacidade total de memória da ACS é formada pela combinação das memórias existentes nas células.
-      ```
+
+
+
+```text
         ┌──────────┐
         │ CÉLULA A │
         │ Memória  │
@@ -59,9 +62,11 @@ A capacidade total de memória da ACS é formada pela combinação das memórias
         ┌────▼─────┐
         │ CÉLULA C │
         │ Memória  │
-        └──────────┘
-        ```
-        Dessa forma, o crescimento do número de células também pode aumentar a capacidade total de armazenamento da arquitetura.
+        └──────────┘  
+```
+
+
+ Dessa forma, o crescimento do número de células também pode aumentar a capacidade total de armazenamento da arquitetura.
         Solicitação de Dados
 
 Uma célula não acessa diretamente a memória interna de outra célula.
