@@ -1,4 +1,6 @@
+# Bloco 01 — Sistema do Jogador
 
+```c
 #include <stdio.h>
 #include <stdbool.h>
 
@@ -23,7 +25,7 @@ void calcular_peso_e_velocidade(Jogador *noe) {
         (noe->qtd_madeira * PESO_MADEIRA_GOFER) +
         (noe->qtd_betume * PESO_BALDE_BETUME);
 
-    // Com carga acima do limite, Noé fica bem mais lento
+    // Com carga acima do limite, Noé fica mais lento
     if (noe->peso_total > CAPACIDADE_MAXIMA) {
         noe->velocidade_atual = VELOCIDADE_BASE * 0.2;
     } else {
@@ -31,4 +33,7 @@ void calcular_peso_e_velocidade(Jogador *noe) {
         noe->velocidade_atual =
             VELOCIDADE_BASE - (noe->peso_total * 0.1);
     }
-    }
+}
+```
+
+**Função do módulo:** controla o inventário de Noé, calcula o peso dos materiais coletados e ajusta sua velocidade de acordo com a carga transportada.
