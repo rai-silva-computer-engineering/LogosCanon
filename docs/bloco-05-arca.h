@@ -3,6 +3,10 @@
 
 #include <stdbool.h>
 
+#define COMPRIMENTO_EXATO 300.0f
+#define LARGURA_EXATA 50.0f
+#define ALTURA_EXATA 30.0f
+
 typedef struct {
     float comprimento_construido;
     float largura_construida;
@@ -11,7 +15,8 @@ typedef struct {
     bool feita_de_gofer;
 } Arca;
 
-// Funções de construção e julgamento da arca
+void inicializar_arca(Arca *obra);
+
 void adicionar_materiais_na_obra(
     Arca *obra,
     int *madeira_do_noe,
@@ -20,4 +25,4 @@ void adicionar_materiais_na_obra(
 
 bool julgar_diluvio(Arca obra);
 
-#endif // ARCA_H
+#endif
