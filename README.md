@@ -1,3 +1,5 @@
+Copyright (c) 2026 Raí Da Cruz Silva - All Rights Reserved. 
+
 # Logos Canon
 
 **Logos Canon** é um jogo de engenharia, sobrevivência e obediência bíblica, estruturado em múltiplas fases. A premissa central é que a salvação e o avanço em cada nível dependem da aplicação de leis exatas da física combinadas com a obediência estrita aos relatos bíblicos.
@@ -16,3 +18,5 @@ Para garantir o rigor matemático das simulações físicas (colisões de fluido
 
 ## Licença
 Este projeto é de propriedade intelectual exclusiva. Todos os direitos sobre a ideia, roteiro, mecânicas e código estão reservados ao autor. Veja o arquivo LICENSE para mais detalhes.
+
+Copyright (c) 2026 Raí Da Cruz Silva - All Rights Reserved. 
