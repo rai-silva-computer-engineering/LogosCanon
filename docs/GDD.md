@@ -1,6 +1,6 @@
 
 |[Avançar &rarr;](./arquitetura.md)|
-|:-------|--------:|
+|:-----|-------:|
 
 
 
@@ -45,6 +45,6 @@ Para que o peso da madeira, o centro de massa dinâmico (com animais se movendo 
 
 
 |[Avançar &rarr;](./arquitetura.md)|
-|:-------|--------:|
 
+|:-----|-------:|
 
