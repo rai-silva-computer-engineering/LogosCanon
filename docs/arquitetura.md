@@ -1,4 +1,5 @@
-
+|[&larr; Voltar](./GDD.md)  | [avançar &rarr;](./bloco-02.md)|
+|:---------|------------:|
 
 #include <stdio.h>
 #include <stdbool.h>
@@ -32,3 +33,7 @@ int main() {
 
     return 0;
 }
+
+
+|[&larr; Voltar](./GDD.md)  | [avançar &rarr;](./bloco-02.md)|
+|:---------|------------:|
