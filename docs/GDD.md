@@ -1,3 +1,9 @@
+
+|[Avançar &rarr;](./bloco-arquitetura.md)|
+|:-------|--------:|
+
+
+
 # Game Design Document: Logos Canon
 
 ## 1. Visão Geral
@@ -36,3 +42,9 @@ Para que o peso da madeira, o centro de massa dinâmico (com animais se movendo 
 
 ### Fase 3: As Muralhas de Jericó (Acústica e Ressonância)
 *(Em desenvolvimento - Foco em frequência de ressonância natural da pedra e fadiga de material por ondas sonoras).*
+
+
+|[Avançar &rarr;](./bloco-arquitetura.md)|
+|:-------|--------:|
+
+
