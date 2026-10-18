@@ -1,16 +1,6 @@
-## `main.c` — Módulo de Integração e Controle da Simulação
+## `main.c` — Módulo de Integração entre blocos e Controle da Simulação
 
-Este arquivo implementa o ponto de entrada do programa e coordena a integração entre os módulos de gerenciamento do jogador, comportamento do gigante e construção da arca.
 
-A lógica principal controla o fluxo de execução da simulação, coordenando as viagens de Noé para coletar dez toras por percurso, transportar os materiais e entregá-los na área de construção.
-
-Durante a execução, o programa atualiza o tempo da simulação e integra o módulo responsável pelo comportamento do gigante, incluindo detecção, perseguição e ataque ao jogador.
-
-O arquivo também coordena as operações de construção da arca, permitindo contabilizar os materiais utilizados e verificar se as condições necessárias para concluir a obra foram atendidas.
-
-Dessa forma, `main.c` atua como a camada central de integração do sistema, conectando as funcionalidades implementadas em `jogador.c`, `gigante.c` e `arca.c`, mantendo a organização modular e facilitando a manutenção e a evolução do projeto.
-
-#include <stdio.h>
 #include <stdbool.h>
 
 #include "jogador.h"
