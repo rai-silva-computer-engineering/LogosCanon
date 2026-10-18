@@ -1,5 +1,5 @@
-[Avançar &rarr;](./arquitetura.md)
-
+|[Avançar &rarr;](./arquitetura.md)||
+|:-------|-------:|
 
 
 # Game Design Document: Logos Canon
