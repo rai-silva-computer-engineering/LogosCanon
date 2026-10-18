@@ -1,5 +1,4 @@
-
-|[Avançar &rarr;](./arquitetura.md)|
+[Avançar &rarr;](./arquitetura.md)
 
 
 
@@ -43,6 +42,5 @@ Para que o peso da madeira, o centro de massa dinâmico (com animais se movendo 
 *(Em desenvolvimento - Foco em frequência de ressonância natural da pedra e fadiga de material por ondas sonoras).*
 
 
-|[Avançar &rarr;](./arquitetura.md)|
-
+[Avançar &rarr;](./arquitetura.md)
 
