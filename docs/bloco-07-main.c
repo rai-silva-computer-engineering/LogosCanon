@@ -1,15 +1,14 @@
-### `main.c` — Módulo de integração e controle da simulação
+## `main.c` — Módulo de Integração e Controle da Simulação
 
-Este arquivo implementa o ponto de entrada do programa e coordena a integração entre os módulos de gerenciamento do jogador, comportamento do gigante e construção da arca. Sua função é controlar o fluxo de execução da simulação, interligando as estruturas de dados e as funções definidas nos respectivos módulos.
+Este arquivo implementa o ponto de entrada do programa e coordena a integração entre os módulos de gerenciamento do jogador, comportamento do gigante e construção da arca.
 
-A lógica principal simula o ciclo de coleta, transporte e entrega de recursos. Noé realiza viagens para coletar dez toras por percurso, transporta os materiais até a área de construção e deposita os recursos disponíveis na obra. Durante esse processo, o programa atualiza o tempo de execução e considera os parâmetros de movimentação e as condições de sobrevivência do jogador.
+A lógica principal controla o fluxo de execução da simulação, coordenando as viagens de Noé para coletar dez toras por percurso, transportar os materiais e entregá-los na área de construção.
 
-O módulo do gigante é integrado ao ciclo de simulação para atualizar sua posição e seu comportamento em relação às coordenadas de Noé, aplicando as regras de detecção, perseguição e ataque implementadas em `gigante.c`.
+Durante a execução, o programa atualiza o tempo da simulação e integra o módulo responsável pelo comportamento do gigante, incluindo detecção, perseguição e ataque ao jogador.
 
-A integração com o módulo `arca.c` permite contabilizar os materiais utilizados, atualizar as dimensões da estrutura e verificar as condições necessárias para concluir a construção. Dessa forma, `main.c` atua como a camada de orquestração do sistema, centralizando o fluxo lógico do jogo sem concentrar em si toda a implementação das regras específicas de cada componente.
+O arquivo também coordena as operações de construção da arca, permitindo contabilizar os materiais utilizados e verificar se as condições necessárias para concluir a obra foram atendidas.
 
-
-
+Dessa forma, `main.c` atua como a camada central de integração do sistema, conectando as funcionalidades implementadas em `jogador.c`, `gigante.c` e `arca.c`, mantendo a organização modular e facilitando a manutenção e a evolução do projeto.
 
 #include <stdio.h>
 #include <stdbool.h>
