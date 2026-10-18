@@ -17,6 +17,6 @@ O jogo não se limita a um único evento, mas sim a uma jornada por grandes acon
 Para garantir o rigor matemático das simulações físicas (colisões de fluidos, acústica e balística) em tempo real, o núcleo do jogo é projetado utilizando linguagens de baixo nível e alta performance, como C, C++ ou Rust.
 
 ## Licença
-Este projeto é de propriedade intelectual exclusiva. Todos os direitos sobre a ideia, roteiro, mecânicas e código estão reservados ao autor. Veja o arquivo LICENSE para mais detalhes.
+Este projeto é de propriedade intelectual exclusiva. Todos os direitos sobre a ideia, roteiro, mecânicas e código estão reservados ao autor. 
 
 Copyright (c) 2026 Raí Da Cruz Silva - All Rights Reserved. 
