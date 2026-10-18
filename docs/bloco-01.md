@@ -19,7 +19,6 @@ typedef struct {
 
 // Calcula o peso da carga e ajusta a velocidade do Noé
 void calcular_peso_e_velocidade(Jogador *noe) {
-
     noe->peso_total =
         (noe->qtd_madeira * PESO_MADEIRA_GOFER) +
         (noe->qtd_betume * PESO_BALDE_BETUME);
