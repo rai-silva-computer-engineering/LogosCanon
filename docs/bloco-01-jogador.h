@@ -1,3 +1,8 @@
+
+|[&larr; Voltar](./bloco-01-jogador.h)  | [avançar &rarr;](./bloco-02-jogador.c)|
+|:---------|------------:|
+
+
 #ifndef JOGADOR_H
 #define JOGADOR_H
 
@@ -19,3 +24,8 @@ typedef struct {
 void calcular_peso_e_velocidade(Jogador *noe);
 
 #endif
+
+
+
+|[&larr; Voltar](./bloco-01-jogador.h)  | [avançar &rarr;](./bloco-02-jogador.c)|
+|:---------|------------:
