@@ -1,3 +1,8 @@
+
+Esse bloco define o caminho que Noé precisa seguir para buscar os materiais nas terras de 
+goffer;
+
+
 #ifndef ORIENTACAO_H
 #define ORIENTACAO_H
 
