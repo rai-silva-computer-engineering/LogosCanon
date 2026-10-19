@@ -1,4 +1,3 @@
-
 |[&larr; Voltar](./bloco-01-jogador.h)  | [avançar &rarr;](./bloco-02-jogador.c)|
 |:---------|------------:|
 
