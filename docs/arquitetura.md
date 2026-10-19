@@ -1,7 +1,7 @@
-|[&larr; Voltar](./GDD.md)  | [avançar &rarr;](./bloco-02.md)|
+|[&larr; Voltar](./GDD.md)  | [avançar &rarr;](./bloco-01-jogador.h)|
 |:---------|------------:|
 
-
+# Arquitetura do gamer 
 
 
 #include <stdio.h>
@@ -39,7 +39,5 @@ int main() {
 
 
 
-
-
-|[&larr; Voltar](./GDD.md)  | [avançar &rarr;](./bloco-02.md)|
+|[&larr; Voltar](./GDD.md)  | [avançar &rarr;](./bloco-01-jogador.h)|
 |:---------|------------:|
