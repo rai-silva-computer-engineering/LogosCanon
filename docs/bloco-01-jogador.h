@@ -1,4 +1,4 @@
-|[&larr; Voltar](./bloco-01-jogador.h)  | [avançar &rarr;](./bloco-02-jogador.c)|
+|[&larr; Voltar](./arquitetura.md)  | [avançar &rarr;](./bloco-02-jogador.c)|
 |:---------|------------:|
 
 
@@ -25,6 +25,5 @@ void calcular_peso_e_velocidade(Jogador *noe);
 #endif
 
 
-
-|[&larr; Voltar](./bloco-01-jogador.h)  | [avançar &rarr;](./bloco-02-jogador.c)|
-|:---------|------------:
+|[&larr; Voltar](./arquitetura.md)  | [avançar &rarr;](./bloco-02-jogador.c)|
+|:---------|------------:|
