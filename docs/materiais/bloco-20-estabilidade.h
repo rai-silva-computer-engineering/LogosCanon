@@ -1,3 +1,17 @@
+### O que este bloco acrescenta?
+
+- Calcula a massa total da Arca e das cargas.
+- Registra a posição de cada carga.
+- Calcula o centro de massa nos três eixos.
+- Identifica deslocamentos laterais.
+- Sinaliza risco de tombamento conforme um limite configurado.
+
+**Fundamento físico:** o centro de massa depende da soma dos momentos de massa dividida pela massa total:
+
+```math
+x_{CM}=\frac{\sum m_i x_i}{\sum m_i}
+
+
 
 #ifndef ESTABILIDADE_H
 #define ESTABILIDADE_H
