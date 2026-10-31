@@ -1,50 +1,62 @@
-#include <stdio.h>
+
 #include <math.h>
-#include <stdbool.h>
-#include "bloco-08-orientacao.h"
-#include "jogador.h"
 #include "gigante.h"
 
-bool mover_noe(
-    Jogador *noe,
-    Nefilim *gigante,
-    float *noe_x,
-    float *noe_y,
-    float destino_x,
-    float destino_y,
-    float delta_tempo
+float calcular_distancia(
+    float x1, float y1,
+    float x2, float y2
 ) {
-    if (!noe || !gigante || !noe_x || !noe_y ||
-        !noe->vivo || delta_tempo <= 0.0f) {
-        return false;
+    float dx = x2 - x1;
+    float dy = y2 - y1;
+
+    return sqrtf(dx * dx + dy * dy);
+}
+
+void atualizar_gigante(
+    Nefilim *gigante,
+    float noe_x,
+    float noe_y,
+    float delta_tempo,
+    bool *noe_vivo
+) {
+    if (gigante == NULL || noe_vivo == NULL ||
+        !*noe_vivo || delta_tempo <= 0.0f) {
+        return;
     }
 
-    float dx = destino_x - *noe_x;
-    float dy = destino_y - *noe_y;
-
     float distancia = calcular_distancia(
-        *noe_x, *noe_y,
-        destino_x, destino_y
+        gigante->pos_x,
+        gigante->pos_y,
+        noe_x,
+        noe_y
     );
 
-    if (distancia <= 0.01f)
-        return true;
+    if (distancia > RAIO_DE_VISAO) {
+        gigante->perseguindo_jogador = false;
+        return;
+    }
 
-    float passo = noe->velocidade_atual * delta_tempo;
+    gigante->perseguindo_jogador = true;
 
-    if (passo > distancia)
-        passo = distancia;
+    if (distancia <= DISTANCIA_DE_ATAQUE) {
+        *noe_vivo = false;
+        return;
+    }
 
-    *noe_x += (dx / distancia) * passo;
-    *noe_y += (dy / distancia) * passo;
+    if (distancia <= 0.0001f) {
+        return;
+    }
 
-    atualizar_gigante(
-        gigante,
-        *noe_x,
-        *noe_y,
-        delta_tempo,
-        &noe->vivo
-    );
+    float passo = VELOCIDADE_GIGANTE * delta_tempo;
 
-    return noe->vivo;
+    if (passo > distancia - DISTANCIA_DE_ATAQUE) {
+        passo = distancia - DISTANCIA_DE_ATAQUE;
+    }
+
+    gigante->pos_x +=
+        ((noe_x - gigante->pos_x) / distancia) * passo;
+
+    gigante->pos_y +=
+        ((noe_y - gigante->pos_y) / distancia) * passo;
 }
+
