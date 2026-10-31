@@ -8,6 +8,10 @@
 #define TOLERANCIA 0.001f
 
 void inicializar_arca(Arca *obra) {
+    if (obra == NULL) {
+        return;
+    }
+
     obra->comprimento_construido = 0.0f;
     obra->largura_construida = 0.0f;
     obra->altura_construida = 0.0f;
@@ -20,38 +24,39 @@ void adicionar_materiais_na_obra(
     int *madeira_do_noe,
     int *betume_do_noe
 ) {
-    int toras;
+    if (obra == NULL || madeira_do_noe == NULL ||
+        betume_do_noe == NULL) {
+        return;
+    }
+
     int usadas = 0;
 
-    if (*madeira_do_noe > 0) {
-        toras = *madeira_do_noe;
+    while (usadas < *madeira_do_noe &&
+           obra->comprimento_construido < COMPRIMENTO_EXATO &&
+           obra->largura_construida < LARGURA_EXATA &&
+           obra->altura_construida < ALTURA_EXATA) {
+        obra->comprimento_construido += COMPRIMENTO_POR_TORA;
+        obra->largura_construida += LARGURA_POR_TORA;
+        obra->altura_construida += ALTURA_POR_TORA;
+        usadas++;
 
-        while (usadas < toras &&
-               obra->comprimento_construido < COMPRIMENTO_EXATO &&
-               obra->largura_construida < LARGURA_EXATA &&
-               obra->altura_construida < ALTURA_EXATA) {
-
-            obra->comprimento_construido += COMPRIMENTO_POR_TORA;
-            obra->largura_construida += LARGURA_POR_TORA;
-            obra->altura_construida += ALTURA_POR_TORA;
-
-            if (obra->comprimento_construido > COMPRIMENTO_EXATO)
-                obra->comprimento_construido = COMPRIMENTO_EXATO;
-
-            if (obra->largura_construida > LARGURA_EXATA)
-                obra->largura_construida = LARGURA_EXATA;
-
-            if (obra->altura_construida > ALTURA_EXATA)
-                obra->altura_construida = ALTURA_EXATA;
-
-            usadas++;
+        if (obra->comprimento_construido > COMPRIMENTO_EXATO) {
+            obra->comprimento_construido = COMPRIMENTO_EXATO;
         }
 
-        *madeira_do_noe -= usadas;
-
-        if (usadas > 0) {
-            obra->feita_de_gofer = true;
+        if (obra->largura_construida > LARGURA_EXATA) {
+            obra->largura_construida = LARGURA_EXATA;
         }
+
+        if (obra->altura_construida > ALTURA_EXATA) {
+            obra->altura_construida = ALTURA_EXATA;
+        }
+    }
+
+    *madeira_do_noe -= usadas;
+
+    if (usadas > 0) {
+        obra->feita_de_gofer = true;
     }
 
     if (*betume_do_noe > 0) {
@@ -69,7 +74,6 @@ bool julgar_diluvio(Arca obra) {
             > TOLERANCIA ||
         fabsf(obra.altura_construida - ALTURA_EXATA)
             > TOLERANCIA) {
-
         printf("FALHA: as medidas da arca estao incompletas.\n");
         printf("Comprimento: %.1f / %.1f\n",
                obra.comprimento_construido, COMPRIMENTO_EXATO);
@@ -77,7 +81,6 @@ bool julgar_diluvio(Arca obra) {
                obra.largura_construida, LARGURA_EXATA);
         printf("Altura: %.1f / %.1f\n",
                obra.altura_construida, ALTURA_EXATA);
-
         return false;
     }
 
@@ -93,6 +96,5 @@ bool julgar_diluvio(Arca obra) {
 
     printf("SUCESSO: a arca esta pronta e impermeabilizada!\n");
     printf("Fase 1 concluida!\n");
-
     return true;
 }
