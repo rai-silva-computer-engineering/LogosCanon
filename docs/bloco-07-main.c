@@ -1,46 +1,115 @@
 ## `main.c` — Módulo de Integração entre blocos e Controle da Simulação
 
 
+#include <stdio.h>
 #include <stdbool.h>
 
 #include "jogador.h"
 #include "gigante.h"
 #include "arca.h"
+#include "orientacao.h"
 
 #define TEMPO_INICIAL 420.0f
 #define TORAS_POR_VIAGEM 10
+#define BETUME_POR_COLETA 1
+#define TEMPO_COLETA 5.0f
+#define INTERVALO_SIMULACAO 1.0f
+
 #define POSICAO_MATERIAIS_X 0.0f
 #define POSICAO_MATERIAIS_Y 0.0f
 #define POSICAO_ARCA_X 10.0f
 #define POSICAO_ARCA_Y 0.0f
+
+static bool coletar_materiais(
+    Jogador *noe,
+    Nefilim *gigante,
+    float noe_x,
+    float noe_y,
+    float *tempo_restante,
+    bool *betume_coletado
+) {
+    if (noe == NULL || gigante == NULL ||
+        tempo_restante == NULL || betume_coletado == NULL ||
+        !noe->vivo || *tempo_restante < TEMPO_COLETA) {
+        return false;
+    }
+
+    float tempo_coletando = 0.0f;
+
+    while (tempo_coletando < TEMPO_COLETA) {
+        atualizar_gigante(
+            gigante,
+            noe_x,
+            noe_y,
+            INTERVALO_SIMULACAO,
+            &noe->vivo
+        );
+
+        *tempo_restante -= INTERVALO_SIMULACAO;
+        tempo_coletando += INTERVALO_SIMULACAO;
+
+        if (!noe->vivo) {
+            printf("\nNoe foi alcancado enquanto coletava materiais!\n");
+            return false;
+        }
+
+        if (*tempo_restante <= 0.0f) {
+            return false;
+        }
+    }
+
+    noe->qtd_madeira += TORAS_POR_VIAGEM;
+
+    if (!*betume_coletado) {
+        noe->qtd_betume += BETUME_POR_COLETA;
+        *betume_coletado = true;
+    }
+
+    calcular_peso_e_velocidade(noe);
+
+    printf("Materiais coletados: %d toras e %d balde(s) de betume.\n",
+           TORAS_POR_VIAGEM,
+           *betume_coletado ? BETUME_POR_COLETA : 0);
+
+    return true;
+}
 
 static bool mover_noe(
     Jogador *noe,
     Nefilim *gigante,
     float *noe_x,
     float *noe_y,
-    float destino_x,
-    float destino_y,
+    Rota *rota,
     float *tempo_restante
 ) {
-    while (*tempo_restante > 0.0f) {
-        float dx = destino_x - *noe_x;
-        float dy = destino_y - *noe_y;
+    if (noe == NULL || gigante == NULL ||
+        noe_x == NULL || noe_y == NULL ||
+        rota == NULL || tempo_restante == NULL ||
+        !noe->vivo || rota->quantidade <= 0) {
+        return false;
+    }
+
+    while (*tempo_restante > 0.0f && !rota->concluida) {
+        Ponto alvo = rota->pontos[rota->trecho_atual];
+
+        float dx = alvo.x - *noe_x;
+        float dy = alvo.y - *noe_y;
         float distancia = calcular_distancia(
-            *noe_x, *noe_y, destino_x, destino_y
+            *noe_x, *noe_y, alvo.x, alvo.y
         );
 
-        if (distancia <= 0.01f) {
-            *noe_x = destino_x;
-            *noe_y = destino_y;
-            return true;
+        if (distancia <= rota->tolerancia) {
+            validar_posicao_rota(
+                rota, *noe_x, *noe_y, &noe->vivo
+            );
+            continue;
         }
 
         if (noe->velocidade_atual <= 0.0f) {
             return false;
         }
 
-        float passo = noe->velocidade_atual;
+        float passo = noe->velocidade_atual * INTERVALO_SIMULACAO;
 
         if (passo > distancia) {
             passo = distancia;
@@ -53,19 +122,23 @@ static bool mover_noe(
             gigante,
             *noe_x,
             *noe_y,
-            1.0f,
+            INTERVALO_SIMULACAO,
             &noe->vivo
         );
 
-        *tempo_restante -= 1.0f;
+        *tempo_restante -= INTERVALO_SIMULACAO;
 
         if (!noe->vivo) {
             printf("\nNoe foi alcancado por um nefilim!\n");
             return false;
         }
+
+        validar_posicao_rota(
+            rota, *noe_x, *noe_y, &noe->vivo
+        );
     }
 
-    return false;
+    return rota->concluida && noe->vivo;
 }
 
 int main(void) {
@@ -83,6 +156,7 @@ int main(void) {
     float tempo_restante = TEMPO_INICIAL;
     float noe_x = POSICAO_MATERIAIS_X;
     float noe_y = POSICAO_MATERIAIS_Y;
+
     int viagem = 0;
     bool jogo_rodando = true;
     bool betume_coletado = false;
@@ -98,27 +172,49 @@ int main(void) {
             obra.altura_construida >= ALTURA_EXATA;
 
         if (arca_completa) {
-            jogo_rodando = false;
             break;
         }
 
         viagem++;
 
-        noe.qtd_madeira = TORAS_POR_VIAGEM;
-        noe.qtd_betume = betume_coletado ? 0 : 1;
+        printf("--- Viagem %d ---\n", viagem);
 
-        calcular_peso_e_velocidade(&noe);
+        if (!coletar_materiais(
+                &noe,
+                &gigante,
+                noe_x,
+                noe_y,
+                &tempo_restante,
+                &betume_coletado)) {
+            jogo_rodando = false;
+            break;
+        }
 
-        printf("Viagem %d: Noe coletou %d toras.\n",
-               viagem, noe.qtd_madeira);
+        printf("Peso carregado: %.1f kg | Velocidade: %.1f\n",
+               noe.peso_total,
+               noe.velocidade_atual);
 
-        printf("Peso: %.1f kg | Velocidade: %.1f\n",
-               noe.peso_total, noe.velocidade_atual);
+        Ponto rota_ida[] = {
+            {5.0f, 0.0f},
+            {POSICAO_ARCA_X, POSICAO_ARCA_Y}
+        };
 
-        if (!mover_noe(
-                &noe, &gigante, &noe_x, &noe_y,
-                POSICAO_ARCA_X, POSICAO_ARCA_Y,
-                &tempo_restante)) {
+        Rota ida;
+
+        if (!inicializar_rota(
+                &ida,
+                rota_ida,
+                2,
+                0.1f
+            ) ||
+            !mover_noe(
+                &noe,
+                &gigante,
+                &noe_x,
+                &noe_y,
+                &ida,
+                &tempo_restante
+            )) {
             jogo_rodando = false;
             break;
         }
@@ -129,8 +225,9 @@ int main(void) {
             &noe.qtd_betume
         );
 
-        betume_coletado = obra.betume_aplicado;
+        calcular_peso_e_velocidade(&noe);
 
+        printf("Materiais entregues na arca.\n");
         printf("Progresso da arca:\n");
         printf("  Comprimento: %.1f / %.1f\n",
                obra.comprimento_construido,
@@ -144,16 +241,36 @@ int main(void) {
         printf("  Tempo restante: %.0f segundos\n\n",
                tempo_restante);
 
-        if (obra.comprimento_construido >= COMPRIMENTO_EXATO &&
+        arca_completa =
+            obra.comprimento_construido >= COMPRIMENTO_EXATO &&
             obra.largura_construida >= LARGURA_EXATA &&
-            obra.altura_construida >= ALTURA_EXATA) {
+            obra.altura_construida >= ALTURA_EXATA;
+
+        if (arca_completa || tempo_restante <= 0.0f) {
             break;
         }
 
-        if (!mover_noe(
-                &noe, &gigante, &noe_x, &noe_y,
-                POSICAO_MATERIAIS_X, POSICAO_MATERIAIS_Y,
-                &tempo_restante)) {
+        Ponto rota_volta[] = {
+            {5.0f, 0.0f},
+            {POSICAO_MATERIAIS_X, POSICAO_MATERIAIS_Y}
+        };
+
+        Rota volta;
+
+        if (!inicializar_rota(
+                &volta,
+                rota_volta,
+                2,
+                0.1f
+            ) ||
+            !mover_noe(
+                &noe,
+                &gigante,
+                &noe_x,
+                &noe_y,
+                &volta,
+                &tempo_restante
+            )) {
             jogo_rodando = false;
             break;
         }
